@@ -263,16 +263,38 @@ section { padding: 64px 0; }
   position: relative;
   overflow: hidden;
   background: var(--bg);
-  /* reset flex for mobile */
   display: block;
   min-height: unset;
 }
+
+/* Desktop image panel — hidden on mobile */
+.hero-img-desktop {
+  display: none;
+}
+
+/* Mobile image — inline between h1 and subtitle */
+.hero-img-mobile {
+  display: block;
+  width: calc(100% + 48px);
+  margin: 20px -24px 24px;
+  overflow: hidden;
+  border-radius: 0;
+  max-height: 480px;
+}
+.hero-img-mobile img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  max-height: 480px;
+  border-radius: 0;
+}
+
 .hero-img-wrap {
   position: relative;
   width: 100%;
   max-height: 620px;
   overflow: hidden;
-  /* reset desktop sticky */
   top: unset;
   height: auto;
   flex-shrink: unset;
@@ -283,7 +305,6 @@ section { padding: 64px 0; }
   display: block;
   animation: heroReveal 1.4s var(--ease) both;
 }
-/* mobile fade: bottom to bg */
 .hero-img-overlay {
   position: absolute; inset: 0;
   background: linear-gradient(to bottom,
@@ -292,17 +313,16 @@ section { padding: 64px 0; }
   );
 }
 .hero-content {
-  padding: 0 24px 56px;
+  padding: 48px 24px 56px;
   text-align: center;
   max-width: 680px;
-  margin: -60px auto 0;
+  margin: 0 auto;
   position: relative; z-index: 2;
-  /* reset desktop flex */
   display: block;
   flex: unset;
   justify-content: unset;
 }
-.hero-content h1 { margin-bottom: 18px; font-size: clamp(32px, 8vw, 52px); }
+.hero-content h1 { margin-bottom: 0; font-size: clamp(32px, 8vw, 52px); }
 .hero-content h1 em { font-style: italic; color: var(--primary); }
 .hero-subtitle {
   font-family: var(--font-sub);
@@ -582,18 +602,29 @@ footer p { font-size: 12px; color: rgba(255,255,255,0.3); line-height: 1.8; }
     align-items: stretch; min-height: 100vh;
     background: var(--bg);
   }
-  .hero-img-wrap {
+  /* Show desktop sticky image panel */
+  .hero-img-desktop {
+    display: block;
     position: sticky; top: 0;
     width: 50%; height: 100vh;
     max-height: unset; flex-shrink: 0;
+    overflow: hidden;
   }
-  /* desktop: fade right toward content */
-  .hero-img-overlay {
+  .hero-img-desktop img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: top center;
+    animation: heroReveal 1.4s var(--ease) both;
+  }
+  .hero-img-desktop .hero-img-overlay {
+    position: absolute; inset: 0;
     background: linear-gradient(to right,
       rgba(253,250,246,0.0) 55%,
       rgba(253,250,246,0.92) 100%
     );
   }
+  /* Hide mobile inline image on desktop */
+  .hero-img-mobile { display: none; }
+
   .hero-content {
     flex: 1; display: flex; flex-direction: column;
     justify-content: center;
@@ -720,7 +751,8 @@ footer p { font-size: 12px; color: rgba(255,255,255,0.3); line-height: 1.8; }
      HERO
      ============================================================ -->
 <section id="hero">
-  <div class="hero-img-wrap">
+  <!-- Desktop only: sticky left image panel -->
+  <div class="hero-img-wrap hero-img-desktop">
     <img
       src="https://drive.google.com/thumbnail?id=12MTs2-qkWp3gvDiHA0I7wDToxRa1zNv6&sz=w1200"
       alt="Wanita percaya diri bercermin dengan wajah segar dan terawat"
@@ -735,11 +767,21 @@ footer p { font-size: 12px; color: rgba(255,255,255,0.3); line-height: 1.8; }
       Wajah Lebih Kencang, Segar &amp; Terangkat —
       <em>Mulai dari 5 Menit Sehari</em>
     </h1>
-    <p class="hero-subtitle reveal reveal-delay-2">
+
+    <!-- Mobile only: image between h1 and subtitle -->
+    <div class="hero-img-mobile reveal reveal-delay-2">
+      <img
+        src="https://drive.google.com/thumbnail?id=12MTs2-qkWp3gvDiHA0I7wDToxRa1zNv6&sz=w1200"
+        alt="Wanita percaya diri bercermin dengan wajah segar dan terawat"
+        loading="eager"
+      />
+    </div>
+
+    <p class="hero-subtitle reveal reveal-delay-3">
       Metode 3-Lift: rutinitas alami untuk wanita 35+ yang ingin wajahnya kembali hidup,
       tanpa alat mahal, tanpa skincare 10 langkah.
     </p>
-    <div class="btn-wrapper reveal reveal-delay-3">
+    <div class="btn-wrapper reveal reveal-delay-4">
       <a href="#final-cta" class="btn-primary">Ya, Saya Mau Mulai Sekarang — Rp127.000</a>
       <div class="trust-badges">
         <span class="trust-badge">Akses langsung</span>
